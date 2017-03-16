@@ -44,7 +44,7 @@
             <label for="middlename">Middle Name</label>
             <input name="middlename" type="text" id="middlename">
             <br><br>
-            You are 
+            <label>You are</label> 
             <input type="radio" name="sex-male" id="sex-male"><label for="sex-male">male</label>
             <input type="radio" name="sex-female" id="sex-female"><label for="sex-female">female</label>
             <br><br>
@@ -52,7 +52,7 @@
             <input name="age" type="number" id="age" min="18" max="101">
             <br><br>
             <label for="country">Country or Residence</label>            
-            <input name="country" list="countries">    
+            <input id="country" name="country" list="countries">    
             <datalist id="countries">
                 <option value="First country">
                 <option value="Second country">
@@ -99,8 +99,8 @@
         <label for="password">Password</label>
         <input name="password" type="password" id="password" required>   
         <br><br>
-        <input type="submit" value="Отправить">
-        <input type="reset" value="Сбросить">
+        <button type="submit">Отправить</button>
+        <button type="reset">Сбросить</button>
     </form>
 </body>
 
