@@ -1,0 +1,136 @@
+body {
+    background-image: url('https://subtlepatterns.com/patterns/ep_naturalblack.png');
+}
+
+.container {
+    width: 1000px;
+    height: 90vh;
+    padding: 10px;
+    box-shadow: 0 0 7px rgba(255,255,255,.7);
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 0;
+/*    position: relative;*/
+}
+
+.div-ears, #div-head, .div-speech, .triangle {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.div-ears {
+    border-radius: 40%;
+    width: 5rem;
+    height: 10rem;
+    background: rgba(174,148,121,.8);
+}
+
+#div-head {
+    border-radius: 40%;
+    width: 30em;
+    height: 35em;
+    background: #ae9479;
+}
+
+#div-face {
+    margin: 5% auto;
+    vertical-align: middle;
+    width: 90%;
+    height: 31em;
+}
+
+.div-eyes {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    margin: 170px 0 0 80px;
+    background: aquamarine;
+    border-radius: 50%;
+}
+
+#div-nose {
+    width: 80px;
+    height: 120px;
+    margin: 20px auto;
+    background: rgb(174,140,115);
+    border-radius: 40px;
+}
+
+#div-mouth {
+    width: 150px;
+    height: 80px;
+    margin: auto;
+    background: #333;
+    border-radius: 40px;
+}
+
+.triangle {
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    position: absolute;
+    top: 420px;
+    left: 600px;
+    border: 20px solid transparent;	
+    border-right: 20px solid #fff;
+}
+
+.div-speech {
+    margin: 0 0 0 30px;
+    width: 310px;
+    height: 90%;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box
+}
+
+.div-speech::after {
+    content: ''; 
+    position: absolute;
+    margin: 0;
+    top: 390px;
+    left: -330px;
+    border: 50px solid transparent;	
+    border-right: 290px solid #fff;
+}
+
+.div-speech>* {
+/*    border: 1px dotted black;*/
+    margin-bottom: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0;
+}
+
+#div-1 {
+    font-size: .9em;
+    direction: rtl;
+    text-transform: uppercase;
+}
+
+#div-2 {
+    font-variant: small-caps;
+    letter-spacing: .1em;
+}
+
+#div-3 {
+    font-weight: bold;
+    text-shadow: 0 1px 0 white, 0 1px 1px black;
+}
+
+#div-4 {
+    white-space: pre-line;
+    word-spacing: 5px;
+    text-indent: 1em;
+    text-decoration: underline;
+}
+
+#div-5 p {
+    margin: 0;
+    line-height: 1.5em;
+    text-align: center;
+    vertical-align: top;
+}
