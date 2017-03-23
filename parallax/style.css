@@ -1,0 +1,48 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper {
+    height: 100vh;
+}
+
+#parallax-layers {
+    margin: auto;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.layer {
+    position: absolute;
+    top: 230px;
+    left: -700px;
+    width: 130em;
+    overflow: hidden;
+    height: 455px;
+}
+
+#layer2 {
+    transform: translateZ(-150px);
+}
+
+#layer3 {
+    transform: translateZ(-300px);
+}
+
+#layer4 {
+    transform: translateZ(-450px);
+}
+
+#layer5 {
+    transform: translateZ(-600px);
+}
+
+#layer6 {
+    transform: translateZ(-750px);
+}
+
+#layer7 {
+    transform: translateZ(-900px);
+}
