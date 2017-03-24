@@ -1,0 +1,46 @@
+body {
+    background-image: url('https://subtlepatterns.com/patterns/light_noise_diagonal.png');
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+table {
+/*    background: #aaa;*/
+    border-collapse: collapse;
+}
+
+table .header {
+    background: #b6c4cc;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(odd) {
+    background: #b6cbcc;
+}
+
+table tr:nth-child(even) {
+    background: #dae4e5;
+}
+
+table td, table th {
+    width: 15rem;
+    height: 2rem;
+    border: 2px solid white;
+    padding: .5rem;
+    color: #415457;
+}
+
+table .name {
+    text-transform: capitalize;
+}
+
+table .outstanding:before {
+    content: '$ '
+}
+
+table .content:hover {
+    background: #688a90;
+}
+
+img {
+    width: 100%;
+}
