@@ -123,6 +123,7 @@ table {
     font: 13pt 'Proxima Nova', Tahoma, Arial;
     height: 38px;
     padding: 10px;
+    padding-left: 20px;
     text-decoration: none;
     text-transform: capitalize;
 }
@@ -130,6 +131,34 @@ table {
 .main-nav a:hover {
     background-color: #15a4fa;
     color: white;
+}
+
+.main-nav a:before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    font: 14pt 'FontAwesome';
+}
+
+#now-reading:before {
+    content: '';
+}
+#browse:before {
+    content: '';
+}
+#buy-books:before {
+    content: '';
+}
+#favourite-books:before {
+    content: '';
+}
+#wishlist:before {
+    content: '';
+}
+#history:before {
+    content: '';
 }
 
 .personal-categories {
@@ -149,6 +178,7 @@ table {
     display: block;
     text-decoration: none;
     height: 30px;
+    margin-bottom: 10px;
 }
 
 .personal-categories a:before {
@@ -178,28 +208,42 @@ table {
     background-color: #7874cf;
 }
 
-/*
-#must-read:hover:before {
-    background-color: #70d346;
-}
-
-#best-of:hover:before {
-    background-color: #123eab;
-}
-
-#classic:hover:before {
-    background-color: #ff7a00;
-}
-
-#non-fiction:hover:before {
-    background-color: #ffe07c;
-}
-*/
-
 .history-list {
     background-color: #1f2637;
     border-top: 1px solid #282f41;
     height: 347px;
     padding: 20px;
+    padding-top: 0;
     box-sizing: border-box;
+    color: #78829d;
+    font: 12pt 'Proxima Nova', Tahoma, Arial;
+}
+
+.history-list-item {
+    display: inline-block;
+    width: 134px;
+    padding-left: 26px;
+}
+
+.history-list li {
+    position: relative;
+    margin-top: 30px;
+}
+
+.history-list li:before {
+    content: '';
+    font: 16pt FontAwesome;
+    position: absolute;
+}
+
+.history-list a {
+    text-decoration: none;
+    color: #97b3ce;
+    text-transform: capitalize;
+}
+
+.history-list .category+span {
+    display: block;
+    font-weight: 100;
+    margin-top: 10px;
 }
