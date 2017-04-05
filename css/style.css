@@ -1339,12 +1339,20 @@ a {
     }
     
     .about {
-        height: 400px;
+        height: auto;
         width: 720px;
     }
     
     .about-block {
-        width: 350px;
+        float: none;
+        width: 90%;
+        height: auto;
+        padding-top: 20px;
+        margin: 0 auto;
+    }
+    
+    .slider {
+        display: none;
     }
     
     .services {
