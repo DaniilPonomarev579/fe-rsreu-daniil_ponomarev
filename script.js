@@ -6,7 +6,7 @@
 //Use this function in the next tasks to define if a given value is a number;
 
 function isNumber(value) {
-	"use strict";
+	'use strict';
 	
 	return typeof value === 'number' && isFinite(value);
 }
@@ -20,11 +20,11 @@ function isNumber(value) {
 function isNegative(number) {
 	"use strict";
 	
-	return isNumber(number) && number < 0 ? true : false;
+	return isNumber(number) && number < 0;
 }
 
-//console.log(isNegative(2)); // false
-//console.log(isNegative(-2)); // true
+window.console.log(isNegative(2)); // false
+window.console.log(isNegative(-2)); // true
 
 //3. Write a function which defines if a given number is positive or not.
 //Do not forget to check if the given value is a number.
@@ -32,7 +32,7 @@ function isNegative(number) {
 function isPositive(number) {
 	"use strict";
 	
-	return isNumber(number) && number > 0 ? true : false;
+	return isNumber(number) && number > 0;
 }
 
 //console.log(isPositive(2)); // true
@@ -57,6 +57,8 @@ function calculateFactorial(number) {
 	return number === 1 ? number : number * calculateFactorial(number - 1);
 }
 
+window.console.log(calculateFactorial(5));
+
 //5. Write a function which returns if the number is prime or not.
 // Do not forget to check if the given value is a number.
 
@@ -75,13 +77,14 @@ function isPrime(number) {
 				return false;
 			}
 		}
-	}
-	else {
+	} else {
 		return false;
 	}
 	
 	return true;
 }
+
+window.console.log(isPrime(5));
 
 //1. Write a function which defines if a given value is a string.
 // Use this function in the next tasks to define if a given value is a string;
@@ -116,7 +119,7 @@ function canParseToNumber(value) {
 	return true;
 }
 
-//console.log(canParseToNumber("2")); // true
+window.console.log(canParseToNumber("2")); // true
 
 //3. Write a function which returns a given string length.
 // Do not forget to check if the given value is a string;
@@ -131,7 +134,7 @@ function getStringLength(value) {
 	return value.length;
 }
 
-//console.log(getStringLength("JS")); // 2
+window.console.log(getStringLength("JS")); // 2
 
 //4. Write a JavaScript function to convert a string into camel case;
 
@@ -144,6 +147,7 @@ function camelize(value) {
 	
 	var words = value.split(' ');
 	var result = '';
+	
 	for (var i = 0; i < words.length; i++) {
 		words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
 		result += words[i];
@@ -152,7 +156,7 @@ function camelize(value) {
 	return result;
 }
 
-//console.log(camelize("Java Script")); // "JavaScript"
+window.console.log(camelize("Java Script")); // "JavaScript"
 
 //5. Write a JavaScript function to capitalize the first letter of a string;
 
@@ -166,10 +170,12 @@ function capitalize(value) {
 	return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-//console.log(capitalize("javaScript")); // "JavaScript"
+window.console.log(capitalize("javaScript")); // "JavaScript"
 
 //6. Write a JavaScript function which return the number
 // of occurrences of a given substring in a string.
+
+// TODO logic
 
 function findOccurrences(substring, string) {
 	"use strict";
@@ -199,8 +205,8 @@ function isArray(value) {
 	return Object.prototype.toString.call(value) === '[object Array]';
 }
 
-//console.log(isArray([])); // true
-//console.log(isArray(2)); // false
+// console.log(isArray([])); // true
+// console.log(isArray(2)); // false
 
 //2. Write a JavaScript function to remove. 'null', '0', '""',
 // 'false', 'undefined' and 'NaN' values from an array
@@ -217,7 +223,7 @@ function clearArray(value) {
 	});
 }
 
-//console.log(clearArray([null, 0, 'null', '', 10, false, undefined, NaN, 5]));
+window.console.log(clearArray([null, 0, 'null', '', 10, false, undefined, NaN, 5]));
 
 //3. Write a JavaScript function to find the highest value in an array
 
@@ -233,7 +239,7 @@ function findMax(value) {
 	});
 }
 
-//console.log(findMax([null, 15, 0, 'null', '', 10, false, undefined, NaN, 5]));
+window.console.log(findMax([null, 15, 0, 'null', '', 10, false, undefined, NaN, 5]));
 
 //4. Write a JavaScript function to find the lowest value in an array
 
@@ -249,7 +255,7 @@ function findMin(value) {
 	});
 }
 
-//console.log(findMin([0, 10, -15, 5]));
+window.console.log(findMin([0, 10, -15, 5]));
 
 //5. Write a JavaScript function to split a string and
 // convert it into an array of words;
@@ -264,7 +270,7 @@ function splitString(value) {
 	return value.split(' ');
 }
 
-//console.log(splitString('aaa bbb ccc'));
+window.console.log(splitString('aaa bbb ccc'));
 
 //6. Write a JavaScript function to find the most frequent item of an array.
 
@@ -281,11 +287,13 @@ function findTheMostFrequentItem(value) {
 	
 	for (var i = 0; i < value.length; i++) {
 		frequency = 0;
+		
 		for (var j = i; j < value.length; j++) {
 			if (value[i] === value[j]) {
 				frequency++;
 			}
 		}
+		
 		if (frequency > maxFrequency) {
 			maxFrequency = frequency;
 			item = value[i];
@@ -295,7 +303,7 @@ function findTheMostFrequentItem(value) {
 	return item;
 }
 
-//console.log(findTheMostFrequentItem([1, 2, 1, 2, 1, 3, 3, 2, 2, 3]));
+window.console.log(findTheMostFrequentItem([1, 2, 1, 2, 1, 3, 3, 2, 2, 3]));
 
 //7. Write a JavaScript function to clone an array
 
@@ -306,11 +314,11 @@ function cloneArray(value) {
 		throw new Error('Not an array');
 	}
 	
-	return value.slice(0, value.length);
+	return value.slice();
 }
 
-//var array = [1,2,3];
-//var array2 = cloneArray(array);
+var array = [1, 2, 3];
+var array2 = cloneArray(array);
 
 //8. Write a JavaScript program to remove duplicate strings
 // from a string array (ignore case sensitivity)
@@ -336,13 +344,12 @@ function removeDuplicateStrings(value) {
 				break;
 			}
 		}
-		
 	}
 	
 	return value;
 }
 
-//console.log(removeDuplicateStrings(['1', '2', '3', '4', '5', '1', '2', '3']));
+window.console.log(removeDuplicateStrings(['1', '2', '3', '4', '5', '1', '2', '3']));
 
 //9. Write a JavaScript function to merge two arrays and
 // removes all duplicates elements
@@ -355,7 +362,9 @@ function mergeArrays(value1, value2) {
 	}
 	
 	var value = [];
+	
 	value = value.concat(value1, value2);
+	
 	for (var i = 0; i < value.length; i++) {
 		for (var j = i + 1; j < value.length; j++) {
 			if (value[i] === value[j]) {
@@ -369,7 +378,7 @@ function mergeArrays(value1, value2) {
 	return value;
 }
 
-//console.log(mergeArrays([1, 2, 3, 4, 5, 1, 2], [2, 4, 6, 4, 7, 3, 5]));
+window.console.log(mergeArrays([1, 2, 3, 4, 5, 1, 2], [2, 4, 6, 4, 7, 3, 5]));
 
 //10. Write a JavaScript function to remove a specific element from an array
 
@@ -389,10 +398,10 @@ function removeElement(value, index) {
 	return value;
 }
 
-//console.log(removeElement(['1', '2', '3', '4', '5', '1', '2', '3'], 2));
+window.console.log(removeElement(['1', '2', '3', '4', '5', '1', '2', '3'], 2));
 
-//11. Write a JavaScript function to sort the following array of objects
-// by title value using ‘sort’ method
+// 11. Write a JavaScript function to sort the following array of objects by
+// title value using ‘sort’ method
 
 function sortByTitle(value1, value2) {
 	"use strict";
@@ -403,15 +412,20 @@ function sortByTitle(value1, value2) {
 var library = [
 	{author: 'Bill Gates', title: 'The Road Ahead', libraryID: 1254},
 	{author: 'Steve Jobs', title: 'Walter Isaacson', libraryID: 4264},
-	{author: 'Suzanne Collins', title: 'Mockingjay: The Final Book of The Hunger Games', libraryID: 3245}
+	{
+		author: 'Suzanne Collins',
+		title: 'Mockingjay: The Final Book of The Hunger Games',
+		libraryID: 3245
+	}
 ];
 
-//console.log(library.sort(sortByTitle));
+window.console.log(library.sort(sortByTitle));
 
 
 function isObject(value) {
 	"use strict";
-	return typeof value === 'object' ? true : false;
+	
+	return typeof value === 'object';
 }
 
 //1. Write a JavaScript program to get the length of a JavaScript object
@@ -427,9 +441,11 @@ function getObjectLength(value) {
 }
 
 var book = {author: 'Steve Jobs', title: 'Walter Isaacson', libraryID: 4264};
-//console.log(getObjectLength(book));
+window.console.log(getObjectLength(book));
 
 //2. Write a JavaScript program to list the properties of a JavaScript object
+
+// TODO all properties in the inner objects
 
 function logObjectProperties(value) {
 	"use strict";
@@ -439,17 +455,21 @@ function logObjectProperties(value) {
 	}
 	
 	for (var key in value) {
-		console.log('key: ' + key + '; value: ' + value[key]);
+		window.console.log('key: ' + key + '; value: ' + value[key]);
 	}
 	
 	return 0;
 }
 
-//logObjectProperties(book);
+// Write a JavaScript program to list the properties of a JavaScript object
+// including inner objects
+
+logObjectProperties(book);
 
 function isDate(value) {
 	"use strict";
-	return Object.prototype.toString.call(value) === '[object Date]' ? true : false;
+	
+	return Object.prototype.toString.call(value) === '[object Date]';
 }
 
 //1. Write a JavaScript function to get difference between two dates in days.
@@ -466,7 +486,7 @@ function getDifferenceInDays(date1, date2) {
 
 var now = new Date();
 var past = new Date(2017, 3, 14);
-//console.log(getDifferenceInDays(now, past));
+window.console.log(getDifferenceInDays(now, past));
 
 //2. Write a JavaScript function gets the current date.
 
@@ -476,10 +496,12 @@ function getCurrentDate() {
 	return new Date();
 }
 
-//now=getCurrentDate();
+now = getCurrentDate();
 
 //3. Write a JavaScript function which displays the current day and time
 // in the following format.
+
+// TODO Return string
 
 function formatDate(date) {
 	"use strict";
@@ -496,7 +518,13 @@ function formatDate(date) {
 		minute: '2-digit'
 	};
 	
-	return date.toLocaleString('en-US', options);
+	//return date.toLocaleString('en-US', options);
+	
+	return date.getDay() + 'Day';
+	
+	return `
+		${date.getDay()} Day
+	`;
 }
 
-//console.log(formatDate(new Date())); // Oct 22 2016, 11:45
+window.console.log(formatDate(new Date())); // Oct 22 2016, 11:45
