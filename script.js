@@ -2,8 +2,8 @@
  * Created by Danil on 13.04.2017.
  */
 
-//1. Write a function which defines if a given value is a number.
-//Use this function in the next tasks to define if a given value is a number;
+// 1. Write a function which defines if a given value is a number.
+// Use this function in the next tasks to define if a given value is a number;
 
 function isNumber(value) {
 	'use strict';
@@ -11,8 +11,8 @@ function isNumber(value) {
 	return typeof value === 'number' && isFinite(value);
 }
 
-//console.log(isNumber("JavaScript")); // false
-//console.log(isNumber (2)); // true
+// console.log(isNumber("JavaScript")); // false
+// console.log(isNumber (2)); // true
 
 //2. Write a function which defines if a given number is negative or not.
 //Do not forget to check if the given value is a number.
@@ -175,8 +175,6 @@ window.console.log(capitalize("javaScript")); // "JavaScript"
 //6. Write a JavaScript function which return the number
 // of occurrences of a given substring in a string.
 
-// TODO logic
-
 function findOccurrences(substring, string) {
 	"use strict";
 	
@@ -184,17 +182,17 @@ function findOccurrences(substring, string) {
 		throw new Error('Not a string');
 	}
 	
-	if (substring === '' || !~string.toUpperCase().indexOf(substring.toUpperCase())) {
+	if (substring === '') {
 		return 0;
 	}
 	
-	return string.toUpperCase().indexOf(substring.toUpperCase()) + 1;
+	return string.toUpperCase().split(substring.toUpperCase()).length - 1;
 }
 
-//console.log(findOccurrences("a", 'JavaScript')); // 2
-//console.log(findOccurrences("ja", 'JavaScript')); // 1
-//console.log(findOccurrences("", 'JavaScript')); // 0
-//console.log(findOccurrences("b", 'JavaScript')); // 0
+window.console.log(findOccurrences("a", 'JavaScript')); // 2
+window.console.log(findOccurrences("ja", 'JavaScript')); // 1
+window.console.log(findOccurrences("", 'JavaScript')); // 0
+window.console.log(findOccurrences("b", 'JavaScript')); // 0
 
 //1. Write a function which defines if a given value is an array. Use this
 // function in the next tasks to define if a given value is an array;
@@ -319,6 +317,7 @@ function cloneArray(value) {
 
 var array = [1, 2, 3];
 var array2 = cloneArray(array);
+window.console.log(array2);
 
 //8. Write a JavaScript program to remove duplicate strings
 // from a string array (ignore case sensitivity)
@@ -445,8 +444,6 @@ window.console.log(getObjectLength(book));
 
 //2. Write a JavaScript program to list the properties of a JavaScript object
 
-// TODO all properties in the inner objects
-
 function logObjectProperties(value) {
 	"use strict";
 	
@@ -461,10 +458,40 @@ function logObjectProperties(value) {
 	return 0;
 }
 
+// TODO all properties in the inner objects
+
 // Write a JavaScript program to list the properties of a JavaScript object
 // including inner objects
 
-logObjectProperties(book);
+function logAllObjectProperties(value) {
+	"use strict";
+	
+	if (!isObject(value)) {
+		throw new Error('Not an object');
+	}
+	
+	for (var key in value) {
+		if (typeof value[key] === 'object'){
+			logAllObjectProperties(value[key]);
+		}
+		window.console.log(key + ': ' + value[key]);
+	}
+	
+	return 0;
+}
+
+var book = {
+	author: 'Steve Jobs',
+	title: 'Walter Isaacson',
+	libraryID: 4264,
+	innerObject: {
+		page1: '1',
+		page2: '2'
+	}
+};
+window.console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+logAllObjectProperties(book);
+window.console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
 function isDate(value) {
 	"use strict";
@@ -501,8 +528,6 @@ now = getCurrentDate();
 //3. Write a JavaScript function which displays the current day and time
 // in the following format.
 
-// TODO Return string
-
 function formatDate(date) {
 	"use strict";
 	
@@ -510,20 +535,14 @@ function formatDate(date) {
 		throw new Error('Not a date');
 	}
 	
-	var options = {
+	return `
+		${date.toLocaleString("en-US", {
 		month: 'short',
 		day: 'numeric',
-		year: 'numeric',
+	})} ${date.getFullYear()}, ${date.toLocaleString("ru-RU", {
 		hour: '2-digit',
 		minute: '2-digit'
-	};
-	
-	//return date.toLocaleString('en-US', options);
-	
-	return date.getDay() + 'Day';
-	
-	return `
-		${date.getDay()} Day
+	})}
 	`;
 }
 
