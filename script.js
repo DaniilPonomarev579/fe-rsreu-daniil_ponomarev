@@ -25,7 +25,7 @@ function calcTriangleArea(a, h) {
 }
 
 function reverseArrayWithFor(array) {
-	"use strict";
+	'use strict';
 	
 	if (!isArray(array)) {
 		return 'not an array';
@@ -58,7 +58,9 @@ function reverseArrayWithWhile(array) {
 function reverseArrayWithDoWhile(array) {
 	"use strict";
 	
-	if (!isArray(array)) return 'not an array';
+	if (!isArray(array)) {
+		return 'not an array';
+	}
 	
 	do {
 		var t = array[i];
@@ -73,7 +75,8 @@ function reverseArrayWithDoWhile(array) {
 function explainIncrementDifference() {
 	"use strict";
 	
-	var i1 = 0, i2 = 0;
+	var i1 = 0;
+	var i2 = 0;
 	
 	console.log('Initial values: ' + i1 + ', ' + i2);
 	console.log('Intermediate values: ' + i1++ + ', ' + ++i2);
@@ -87,11 +90,9 @@ function checkNumberSign(number) {
 	
 	if (number > 0) {
 		return 'positive';
-	}
-	else if (number < 0) {
+	} else if (number < 0) {
 		return 'negative';
-	}
-	else if (number === 0) {
+	} else if (number === 0) {
 		return 'zero';
 	}
 }
@@ -103,7 +104,7 @@ function countFactorial(number) {
 		throw new Error('Can\'t count the factorial');
 	}
 	
-	return number <= 1 ?  number :  number*countFactorial(number-1);
+	return number === 0 ?  1 :  number*countFactorial(number-1);
 }
 
 var a = 5;
