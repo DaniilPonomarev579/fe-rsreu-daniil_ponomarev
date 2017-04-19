@@ -110,15 +110,25 @@ function canParseToNumber(value) {
 		return false;
 	}
 	
-	for (var i = 0; i < value.length; i++) {
-		if (!(value[i] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])) {
-			return false;
-		}
+	// for (var i = 0; i < value.length; i++) {
+	// 	if (!(value[i] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])) {
+	// 		return false;
+	// 	}
+	// }
+	
+	if (!(+value)){
+		return false;
 	}
+	
 	return true;
 }
 
-window.console.log(canParseToNumber("2")); // true
+console.log('!!!!!!!!!!!!!');
+window.console.log(canParseToNumber('2')); // true
+window.console.log(canParseToNumber('NaN')); // false
+window.console.log(canParseToNumber('abc')); // false
+window.console.log(canParseToNumber('Infinity')); // true
+console.log('!!!!!!!!!!!!!');
 
 //3. Write a function which returns a given string length.
 // Do not forget to check if the given value is a string;
