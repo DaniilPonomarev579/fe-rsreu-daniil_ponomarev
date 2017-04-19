@@ -50,11 +50,10 @@ function calculateFactorial(number) {
 	}
 	
 	if (!isPositive(number)) {
-		throw new Error('It\'s possible to calculate factorial ' +
-				'of a positive number');
+		return 1;
 	}
 	
-	return number === 1 ? number : number * calculateFactorial(number - 1);
+	return number === 0 ? 1 : number * calculateFactorial(number - 1);
 }
 
 window.console.log(calculateFactorial(5));
@@ -107,7 +106,7 @@ function canParseToNumber(value) {
 		throw new Error('Not a string');
 	}
 	
-	if (value === '') {
+	if (!value) {
 		return false;
 	}
 	
@@ -149,7 +148,7 @@ function camelize(value) {
 	var result = '';
 	
 	for (var i = 0; i < words.length; i++) {
-		words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+		words[i] = capitalize(words[i]);
 		result += words[i];
 	}
 	
@@ -458,8 +457,6 @@ function logObjectProperties(value) {
 	return 0;
 }
 
-// TODO all properties in the inner objects
-
 // Write a JavaScript program to list the properties of a JavaScript object
 // including inner objects
 
@@ -471,10 +468,11 @@ function logAllObjectProperties(value) {
 	}
 	
 	for (var key in value) {
-		if (typeof value[key] === 'object'){
+		if (typeof value[key] === 'object') {
 			logAllObjectProperties(value[key]);
 		}
-		window.console.log(key + ': ' + value[key]);
+		
+		console.log(key + ': ' + value[key]);
 	}
 	
 	return 0;
@@ -489,9 +487,8 @@ var book = {
 		page2: '2'
 	}
 };
-window.console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
 logAllObjectProperties(book);
-window.console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
 function isDate(value) {
 	"use strict";
