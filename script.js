@@ -104,8 +104,20 @@ function countFactorial(number) {
 		throw new Error('Can\'t count the factorial');
 	}
 	
+	if (number===0) {
+		return 1;
+	}
+	
+	if (number<0) {
+		throw new Error('The number is negative!');
+	}
+	
 	return number === 0 ?  1 :  number*countFactorial(number-1);
 }
+
+console.log(countFactorial(5));
+console.log(countFactorial(10));
+console.log(countFactorial(0));
 
 var a = 5;
 var h = 10;
