@@ -3,6 +3,8 @@
  */
 
 function isNumber(value) {
+	'use strict';
+	
 	return typeof value === 'number' && isFinite(value);
 }
 
@@ -11,7 +13,7 @@ function isArray(array) {
 }
 
 function calcTriangleArea(a, h) {
-	"use strict";
+	'use strict';
 	
 	if (!isNumber(a) || !isNumber(h)) {
 		throw new Error('a and h should be numbers');
@@ -41,7 +43,7 @@ function reverseArrayWithFor(array) {
 }
 
 function reverseArrayWithWhile(array) {
-	"use strict";
+	'use strict';
 	
 	if (!isArray(array)) return 'not an array';
 	
@@ -56,7 +58,7 @@ function reverseArrayWithWhile(array) {
 }
 
 function reverseArrayWithDoWhile(array) {
-	"use strict";
+	'use strict';
 	
 	if (!isArray(array)) {
 		return 'not an array';
@@ -73,7 +75,7 @@ function reverseArrayWithDoWhile(array) {
 }
 
 function explainIncrementDifference() {
-	"use strict";
+	'use strict';
 	
 	var i1 = 0;
 	var i2 = 0;
@@ -84,7 +86,7 @@ function explainIncrementDifference() {
 }
 
 function checkNumberSign(number) {
-	"use strict";
+	'use strict';
 	
 	if (!isNumber(number)) return 'not a number';
 	
@@ -98,7 +100,7 @@ function checkNumberSign(number) {
 }
 
 function countFactorial(number) {
-	"use strict";
+	'use strict';
 	
 	if (!isNumber(number)) {
 		throw new Error('Can\'t count the factorial');
