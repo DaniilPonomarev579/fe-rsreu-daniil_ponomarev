@@ -19,6 +19,12 @@ var Calculator = (function (Utils) {
 	
 	var result = 0;
 	
+	function getInitialState(callback) {
+		setTimeout(function () {
+			callback();
+		}, 500);
+	}
+	
 	function add() {
 		for (let i = 0; i < arguments.length; i++) {
 			if (!Utils.isNumber(arguments[i])) {
@@ -81,16 +87,22 @@ var Calculator = (function (Utils) {
 		divide: divide,
 		multiply: multiply,
 		getResult: getResult,
-		reset: reset
+		reset: reset,
+		getInitialState: getInitialState
 	};
 })(Utils);
 
+for (var prop in Calculator) {
+	if (typeof Calculator[prop] === 'function') {
+		// Calculator[prop] = Calculator[prop].bind(Calculator);
+	}
+}
+
+Calculator.add = Calculator.add.bind(Calculator);
+Calculator.reset = Calculator.reset.bind(Calculator);
+
 Calculator.reset();
-Calculator.add(5);
-Calculator.add(5, 5, 5);
-Calculator.reset();
-Calculator.add(5)(5);
-// Calculator.subtract(10);
-Calculator.multiply(5, 2)(10);
-// Calculator.divide(10);
+// Calculator.add(5).add(5);
+console.log(Calculator.add(5));//.reset().getResult());
+// Calculator.getInitialState();
 console.log(Calculator.getResult());
