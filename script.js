@@ -19,12 +19,6 @@ var Calculator = (function (Utils) {
 	
 	var result = 0;
 	
-	function getInitialState(callback) {
-		setTimeout(function () {
-			callback();
-		}, 500);
-	}
-	
 	function add() {
 		for (let i = 0; i < arguments.length; i++) {
 			if (!Utils.isNumber(arguments[i])) {
@@ -34,7 +28,7 @@ var Calculator = (function (Utils) {
 			result += arguments[i];
 		}
 		
-		return add;
+		return this;
 	}
 	
 	function subtract() {
@@ -46,7 +40,7 @@ var Calculator = (function (Utils) {
 			result -= arguments[i];
 		}
 		
-		return subtract;
+		return this;
 	}
 	
 	function divide() {
@@ -58,7 +52,7 @@ var Calculator = (function (Utils) {
 			result /= arguments[i];
 		}
 		
-		return divide;
+		return this;
 	}
 	
 	function multiply() {
@@ -70,7 +64,7 @@ var Calculator = (function (Utils) {
 			result *= arguments[i];
 		}
 		
-		return multiply;
+		return this;
 	}
 	
 	function getResult() {
@@ -81,6 +75,16 @@ var Calculator = (function (Utils) {
 		result = 0;
 	}
 	
+	function setInitialState(arg) {
+		result = arg;
+	}
+	
+	function getInitialState(callback) {
+		setTimeout(function () {
+			callback.call(this, 500);
+		}.bind(this), 500);
+	}
+	
 	return {
 		add: add,
 		subtract: subtract,
@@ -88,21 +92,13 @@ var Calculator = (function (Utils) {
 		multiply: multiply,
 		getResult: getResult,
 		reset: reset,
-		getInitialState: getInitialState
+		getInitialState: getInitialState,
+		setInitialState: setInitialState
 	};
 })(Utils);
 
-for (var prop in Calculator) {
-	if (typeof Calculator[prop] === 'function') {
-		// Calculator[prop] = Calculator[prop].bind(Calculator);
-	}
-}
-
-Calculator.add = Calculator.add.bind(Calculator);
-Calculator.reset = Calculator.reset.bind(Calculator);
-
 Calculator.reset();
-// Calculator.add(5).add(5);
-console.log(Calculator.add(5));//.reset().getResult());
-// Calculator.getInitialState();
+Calculator.setInitialState(50);
+Calculator.getInitialState(Calculator.setInitialState);
+console.log(Calculator.add(10).subtract(5).multiply(5).divide(5).getResult());
 console.log(Calculator.getResult());
