@@ -1,58 +1,61 @@
-var Controller = function () {
+var Controller = (function (BookStorage, View) {
 	'use strict';
 	
-	this.model = new BookStorage(this);
-	this.view = new View(this);
+	// var model = BookStorage;
+	View.setController(this);
+	// var view = View;
 	
-	this.provideAllBooks = provideAllBooks;
-	this.provideMostPopularBooks = provideMostPopularBooks;
-	this.provideSearchBooks = provideSearchBooks;
-	this.rateBooks = rateBooks;
-	this.addNewBook = addNewBook;
 	
-	this.view.refreshBooks(this.model.books);
-	this.view.addEventListeners();
+	function provideAllBooks() {
+		'use strict';
+		
+		View.makeFilterCriterionActive(this);
+		
+		var books = BookStorage.getBooks();
+		
+		View.refreshBooks(books);
+		View.addEventListeners();
+	}
 	
-	return this;
-};
-
-var controller = new Controller();
-
-function provideAllBooks() {
-	'use strict';
+	function provideMostPopularBooks() {
+		'use strict';
+		
+		View.makeFilterCriterionActive(this);
+		View.refreshBooks(BookStorage.getMostPopularBooks());
+		View.addEventListeners();
+	}
 	
-	controller.view.makeFilterCriterionActive(this);
-	controller.view.refreshBooks(controller.model.books);
-	controller.view.addEventListeners();
-}
-
-function provideMostPopularBooks() {
-	'use strict';
+	function provideSearchBooks() {
+		'use strict';
+		
+		View.refreshBooks(BookStorage.getSearchedBooks(this.value));
+		View.addEventListeners();
+	}
 	
-	controller.view.makeFilterCriterionActive(this);
-	controller.view.refreshBooks(controller.model.getMostPopularBooks());
-	controller.view.addEventListeners();
-}
-
-function provideSearchBooks() {
-	'use strict';
+	function rateBooks() {
+		'use strict';
+		
+		BookStorage.rateBook(this.parentNode.parentNode.id,
+				this.getAttribute('rating'));
+	}
 	
-	controller.view.refreshBooks(controller.model.getSearchedBooks(this.value));
-	controller.view.addEventListeners();
-}
-
-function rateBooks() {
-	'use strict';
+	function addNewBook(title, author, cover) {
+		'use strict';
+		
+		console.log(`${title} ${author} ${cover}`);
+		BookStorage.addBookToBookStorage(title, author, cover);
+		View.refreshBooks(BookStorage.getBooks());
+		// Controller.view.addEventListeners();
+	}
 	
-	controller.model.rateBook(this.parentNode.parentNode.id,
-			this.getAttribute('rating'));
-}
-
-function addNewBook(title, author, cover) {
-	'use strict';
+	View.refreshBooks(BookStorage.getBooks());
+	View.addEventListeners();
 	
-	console.log(`${title} ${author} ${cover}`);
-	controller.model.addBookToBookStorage(title, author, cover);
-	controller.view.refreshBooks(controller.model.books);
-	controller.view.addEventListeners();
-}
+	return {
+	provideAllBooks: provideAllBooks,
+	provideMostPopularBooks: provideMostPopularBooks,
+	provideSearchBooks: provideSearchBooks,
+	rateBooks: rateBooks,
+	addNewBook: addNewBook
+	}
+})(BookStorage, View);

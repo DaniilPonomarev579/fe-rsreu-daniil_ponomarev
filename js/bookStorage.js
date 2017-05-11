@@ -1,145 +1,148 @@
-var BookStorage = function (controller) {
+var BookStorage = (function () {
 	'use strict';
 	
-	this.controller = controller;
-	this.getMostPopularBooks = getMostPopularBooks;
-	this.getSearchedBooks = getSearchedBooks;
-	this.rateBook = rateBook;
-	this.addBookToBookStorage = addBookToBookStorage;
+	var books = [];
+	var staticId = 0;
 	
-	this.books = [];
-	
-	this.books.push(
+	books.push(
 			{
-				identificator: '1',
+				id: staticId++,
 				title: 'Jewels of Nizam',
 				author: 'Geeta Devi',
 				rating: 3,
 				cover: 'css/images/covers/1.png'
 			},
 			{
-				identificator: '2',
+				id: staticId++,
 				title: 'Cakes &amp; Bakes',
 				author: 'Sanjeev Kapoor',
 				rating: 3,
 				cover: 'css/images/covers/2.png'
 			},
 			{
-				identificator: '3',
+				id: staticId++,
 				title: 'Jamie’s Kitchen',
 				author: 'Jamie Oliver',
 				rating: 5,
 				cover: 'css/images/covers/3.png'
 			},
 			{
-				identificator: '4',
+				id: staticId++,
 				title: 'Inexpensive Family Meals',
 				author: 'Simon Holst',
 				rating: 4,
 				cover: 'css/images/covers/4.png'
 			},
 			{
-				identificator: '5',
+				id: staticId++,
 				title: 'Paleo Slow Cooking',
 				author: 'Chrissy Gower',
 				rating: 2,
 				cover: 'css/images/covers/5.png'
 			},
 			{
-				identificator: '6',
+				id: staticId++,
 				title: 'Cook Like an Italian',
 				author: 'Tobie Puttock',
 				rating: 1,
 				cover: 'css/images/covers/6.png'
 			},
 			{
-				identificator: '7',
+				id: staticId++,
 				title: 'Suneeta Vaswani',
 				author: 'Geeta Devi',
 				rating: 4,
 				cover: 'css/images/covers/7.png'
 			},
 			{
-				identificator: '8',
+				id: staticId++,
 				title: 'Jamie Does',
 				author: 'Jamie Oliver',
 				rating: 5,
 				cover: 'css/images/covers/8.png'
 			},
 			{
-				identificator: '9',
+				id: staticId++,
 				title: 'Jamie’s italy',
 				author: 'Jamie Oliver',
 				rating: 3,
 				cover: 'css/images/covers/9.png'
 			},
 			{
-				identificator: '10',
+				id: staticId++,
 				title: 'Vegetables Cookbook',
 				author: 'Matthew Biggs',
 				rating: 5,
 				cover: 'css/images/covers/10.png'
 			}
-	)
+	);
 	
-	return this;
-}
-
-function getMostPopularBooks() {
-	'use strict';
-	
-	var mostPopularBooks = [];
-	
-	for (var i = 0; i < this.books.length; i++) {
-		if (this.books[i].rating === 5) {
-			mostPopularBooks.push(this.books[i]);
-		}
-	}
-	
-	return mostPopularBooks;
-}
-
-function getSearchedBooks(keywords) {
-	'use strict';
-	
-	var searchedBooks = [];
-	
-	for (var i = 0; i < this.books.length; i++) {
-		if (this.books[i].title.indexOf(keywords) !== -1) {
-			searchedBooks.push(this.books[i]);
-		}
-	}
-	
-	return searchedBooks;
-}
-
-function rateBook(identificator, rating) {
-	'use strict';
-	
-	for (var i = 0; i < this.books.length; i++) {
-		if (this.books[i].identificator === identificator) {
-			this.books[i].rating = +rating;
+	function getMostPopularBooks() {
+		'use strict';
+		
+		var mostPopularBooks = [];
+		
+		for (var i = 0; i < books.length; i++) {
+			if (books[i].rating === 5) {
+				mostPopularBooks.push(books[i]);
+			}
 		}
 		
-		console.log(this.books[i]);
+		return mostPopularBooks;
 	}
-}
-
-function addBookToBookStorage(title, author, cover) {
-	'use strict';
 	
-	var identificator = +this.books[this.books.length-1].identificator+1+'';
-	
-	this.books.push(
-			{
-				identificator: identificator,
-				title: title,
-				author: author,
-				rating: 0,
-				cover: cover
-			});
-	
-	for (var i = 0; i < this.books.length; i++) {
-		console.log(this.books[i]);
+	function getSearchedBooks(keywords) {
+		'use strict';
+		
+		var searchedBooks = [];
+		
+		for (var i = 0; i < books.length; i++) {
+			if (books[i].title.indexOf(keywords) !== -1) {
+				searchedBooks.push(books[i]);
+			}
+		}
+		
+		return searchedBooks;
 	}
-}
+	
+	function rateBook(id, rating) {
+		'use strict';
+		
+		for (var i = 0; i < books.length; i++) {
+			if (books[i].id === id) {
+				books[i].rating = +rating;
+			}
+			
+			console.log(books[i]);
+		}
+	}
+	
+	function addBookToBookStorage(title, author, cover) {
+		'use strict';
+				
+		books.push(
+				{
+					id: staticId++,
+					title: title,
+					author: author,
+					rating: 0,
+					cover: cover
+				});
+		
+		for (var i = 0; i < books.length; i++) {
+			console.log(books[i]);
+		}
+	}
+	
+	function getBooks() {
+		return books;
+	}
+		
+	return {
+		getMostPopularBooks: getMostPopularBooks,
+		getSearchedBooks: getSearchedBooks,
+		rateBook: rateBook,
+		addBookToBookStorage: addBookToBookStorage,
+		getBooks: getBooks
+	};
+})();
