@@ -127,6 +127,7 @@ var Menu = (function () {
 	
 	function menuHeaderClickHandler() {
 		var menuList = document.querySelector('#menu__list');
+		
 		if (menuList.style.height === '0px') {
 			menuList.style.height = '110px';
 		} else {
@@ -144,7 +145,7 @@ var Menu = (function () {
 	
 	return {
 		changeMenuStyle: changeMenuStyle
-	}
+	};
 }());
 
 Menu.changeMenuStyle();
