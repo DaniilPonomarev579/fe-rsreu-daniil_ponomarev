@@ -9,11 +9,13 @@ var Controller = (function (BookStorage, View) {
 	function provideAllBooks() {
 		'use strict';
 		
+		// Move to view
 		View.makeFilterCriterionActive(this);
 		
 		var books = BookStorage.getBooks();
-		
 		View.refreshBooks(books);
+		
+		// Move to view
 		View.addEventListeners();
 	}
 	
@@ -32,11 +34,13 @@ var Controller = (function (BookStorage, View) {
 		View.addEventListeners();
 	}
 	
-	function rateBooks() {
+	function rateBooks(bookId, rating) {
 		'use strict';
 		
-		BookStorage.rateBook(this.parentNode.parentNode.id,
-				this.getAttribute('rating'));
+		BookStorage.rateBook(
+				this.parentNode.parentNode.id,
+				this.getAttribute('rating')
+		);
 	}
 	
 	function addNewBook(title, author, cover) {

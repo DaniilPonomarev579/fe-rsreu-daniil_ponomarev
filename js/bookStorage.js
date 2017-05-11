@@ -121,13 +121,14 @@ var BookStorage = (function () {
 		'use strict';
 				
 		books.push(
-				{
-					id: staticId++,
-					title: title,
-					author: author,
-					rating: 0,
-					cover: cover
-				});
+				new Book(
+						staticId++,
+						title,
+						author,
+						0,
+						cover
+				)
+		);
 		
 		for (var i = 0; i < books.length; i++) {
 			console.log(books[i]);
@@ -146,3 +147,11 @@ var BookStorage = (function () {
 		getBooks: getBooks
 	};
 })();
+
+function Book(id, title, author, rating, cover) {
+	this.id = id;
+	this.title = title;
+	this.author = author;
+	this.rating = rating;
+	this.cover = cover;
+}
