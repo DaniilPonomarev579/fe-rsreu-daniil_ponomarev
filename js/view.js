@@ -1,91 +1,45 @@
 var View = (function () {
 	'use strict';
 	
-	//this.controller = controller;
-	
-	// this.refreshBooks = refreshBooks;
-	// this.addEventListeners = addEventListeners;
-	// this.makeFilterCriterionActive = makeFilterCriterionActive;
-	// this.addBook = addBook;
-	
 	function refreshBooks(books) {
-		'use strict';
-		
-		var filterResultsList = document.querySelector('.filter-results-list');
+		let filterResultsList = document.querySelector('.filter-results-list');
 		
 		filterResultsList.innerHTML = '';
 		
-		// for (var i = 0; i < filterResultsList.childNodes.length;) {
-		// 	filterResultsList.removeChild(filterResultsList.childNodes[i]);
-		// }
+		let fragment = document.createDocumentFragment();
 		
-		var fragment = document.createDocumentFragment();
-		
-		for (var i = 0; i < books.length; i++) {
-			var divRating = document.createElement('div');
+		for (let i = 0; i < books.length; i++) {
+			let divRating = document.createElement('div');
 			
 			divRating.className = 'book__rating';
 			
-			var star = document.createElement('input');
+			let star = document.createElement('input');
 			
-			//Initialize star
+			for (let j = 5; j > 0; j--) {
+				divRating.insertAdjacentHTML(
+						'beforeEnd',
+						`
+							<input 
+								title="Rating: ${j}" 
+								type="radio" 
+								name="book-rating-${books[i].id}" 
+								class="rating-star rating-star-${j}" 
+								rating="${j}"
+							>
+							<label title="Rating: ${j}"></label>
+						`);
+			}
 			
-			addStarEventListener(star);
+			let stars = divRating.children;
 			
-			// Replace with loop
-			divRating.innerHTML = `
-				<input 
-					title="Rating: 5" 
-					type="radio" 
-					name="book-rating-${books[i].id}" 
-					class="rating-star rating-star-5" 
-					rating="5"
-				>
-				<label title="Rating: 5"></label>
-				<input 
-					title="Rating: 4" 
-					type="radio" 
-					name="book-rating-${books[i].id}" 
-					class="rating-star rating-star-4" 
-					rating="4"
-				>
-				<label title="Rating: 4"></label>
-				<input 
-					title="Rating: 3" 
-					type="radio" 
-					name="book-rating-${books[i].id}" 
-					class="rating-star rating-star-3" 
-					rating="3"
-				>
-				<label title="Rating: 3"></label>
-				<input 
-					title="Rating: 2" 
-					type="radio" 
-					name="book-rating-${books[i].id}" 
-					class="rating-star rating-star-2" 
-					rating="2"
-				>
-				<label title="Rating: 2"></label>
-				<input 
-					title="Rating: 1" 
-					type="radio" 
-					name="book-rating-${books[i].id}" 
-					class="rating-star rating-star-1" 
-					rating="1"
-				>
-				<label title="Rating: 1"></label>
-		`;
-			
-			var stars = divRating.children;
-			
-			for (var j = 0; j < stars.length; j++) {
+			for (let j = 0; j < stars.length; j++) {
 				if (stars[j].className ===
 						'rating-star rating-star-' + books[i].rating) {
-					stars[j].setAttribute('checked', true);
+					stars[j].setAttribute('checked', 'true');
 				}
 			}
 			
-			var element = document.createElement(`li`);
+			let element = document.createElement(`li`);
 			element.id = books[i].id;
 			
 			element.className = 'book';
@@ -106,43 +60,65 @@ var View = (function () {
 		}
 		
 		filterResultsList.appendChild(fragment);
+		
+		addStarEventListener();
+	}
+	
+	function rateBooks() {
+		Controller.rateBooks(
+				+this.parentNode.parentNode.id,
+				+this.getAttribute('rating')
+		);
+		Controller.addNotification(
+				'rating',
+				this.parentNode.parentNode.childNodes[3].innerHTML,
+				+this.getAttribute('rating')
+		);
 	}
 	
 	function addStarEventListener() {
+		let stars = document.getElementsByClassName('rating-star');
 		
-	}
-	
-	function addEventListeners() {
-		'use strict';
-		
-		document
-				.getElementById('allBooks')
-				.addEventListener('click', this.controller.provideAllBooks);
-		
-		document
-				.getElementById('mostPopular')
-				.addEventListener('click', this.controller.provideMostPopularBooks);
-		
-		document
-				.getElementById('searchKeywords')
-				.addEventListener('input', this.controller.provideSearchBooks);
-		
-		document
-				.getElementById('newBookButton')
-				.addEventListener('click', this.addBook);
-		
-		// Move to refreshBooks()
-		var stars = document.getElementsByClassName('rating-star');
-		
-		for (var i = 0; i < stars.length; i++) {
-			stars[i].addEventListener('change', this.controller.rateBooks);
+		for (let i = 0; i < stars.length; i++) {
+			stars[i].addEventListener('change', rateBooks);
 		}
 	}
 	
-	function makeFilterCriterionActive(button) {
-		'use strict';
+	function provideBooks() {
+		if (this.id === 'allBooks') {
+			makeFilterCriterionActive(this);
+			Controller.provideAllBooks();
+			Controller.addNotification('filter', 'allBooks');
+		} else if (this.id === 'mostPopular') {
+			makeFilterCriterionActive(this);
+			Controller.provideMostPopularBooks();
+			Controller.addNotification('filter', 'mostPopular');
+		} else if (this.id === 'searchKeywords') {
+			Controller.provideSearchBooks(this.value);
+			Controller.addNotification('search', this.value);
+		}
+	}
+	
+	function addEventListeners() {
+		document
+				.getElementById('allBooks')
+				.addEventListener('click', provideBooks);
 		
-		for (var i = 0; i < button.parentNode.parentNode.childNodes.length; i++) {
+		document
+				.getElementById('mostPopular')
+				.addEventListener('click', provideBooks);
+		
+		document
+				.getElementById('searchKeywords')
+				.addEventListener('input', provideBooks);
+		
+		document
+				.getElementById('newBookButton')
+				.addEventListener('click', addBook);
+	}
+	
+	function makeFilterCriterionActive(button) {
+		for (let i = 0; i < button.parentNode.parentNode.childNodes.length; i++) {
 			if (button.parentNode.parentNode.childNodes[i] != '[object Text]') {
 				button.parentNode.parentNode.childNodes[i].childNodes[1].classList.remove(
 						'filter-books__criterion--active');
@@ -153,8 +129,6 @@ var View = (function () {
 	}
 	
 	function addBook() {
-		'use strict';
-		
 		if (!document.getElementById('newBookTitle').value ||
 				!document.getElementById('newBookAuthor').value ||
 				!document.getElementById('newBookCover').value) {
@@ -166,18 +140,93 @@ var View = (function () {
 				document.getElementById('newBookTitle').value,
 				document.getElementById('newBookAuthor').value,
 				'css/images/covers/' +
-				document.getElementById('newBookCover').files[0].name);
+				document.getElementById('newBookCover').files[0].name
+		);
+		Controller.addNotification(
+				'addBook',
+				document.getElementById('newBookTitle').value,
+				document.getElementById('newBookAuthor').value
+		);
 	}
 	
-	function setController(controller) {
-		this.controller = controller;
+	function refreshNotifications(notifications) {
+		var notificationsList = document.querySelector('.history-list ul');
+		notificationsList.innerHTML = '';
+		
+		for (let i = notifications.length - 1; i >= 0; i--) {
+			var difference = new Date().getTime() - notifications[i].time.getTime();
+			var hours = Math.floor(difference / (1000 * 60 * 60)) === 0 ?
+					'' : Math.floor(difference / (1000 * 60 * 60)) + ' hours <br>';
+			var minutes = Math.floor(difference / (1000 * 60)) === 0 ?
+					'' : Math.floor(difference / (1000 * 60)) + ' minutes <br>';
+			
+			var time =
+					hours +
+					minutes +
+					Math.round(difference / 1000) % 60 + ' seconds <br>';
+			
+			if (notifications[i].type === 'addBook') {
+				notificationsList.insertAdjacentHTML(
+						'beforeEnd',
+						`
+							<li>
+								<div class="history-list-item"> 
+									You added 
+									<a href="#" class="title">${notifications[i].title}</a> 
+									by <a href="#" class="author">${notifications[i].author}</a> 
+									<span>${time} ago</span>
+								</div>
+							</li>
+						`)
+			} else if (notifications[i].type === 'filter') {
+				notificationsList.insertAdjacentHTML(
+						'beforeEnd',
+						`
+							<li>
+								<div class="history-list-item"> 
+									You filtered books 
+									by <a href="#">${notifications[i].criterion}</a> 
+									<span>${time} ago</span>
+								</div>
+							</li>
+						`)
+			} else if (notifications[i].type === 'search') {
+				notificationsList.insertAdjacentHTML(
+						'beforeEnd',
+						`
+							<li>
+								<div class="history-list-item"> 
+									You searched 
+									<a href="#">${notifications[i].keywords}</a> 
+									<span>${time} ago</span>
+								</div>
+							</li>
+						`)
+			} else if (notifications[i].type === 'rating') {
+				notificationsList.insertAdjacentHTML(
+						'beforeEnd',
+						`
+							<li>
+								<div class="history-list-item"> 
+									You rated  
+									<a href="#" class="title">${notifications[i].title}</a> 
+									to <a href="#">${notifications[i].rating}</a>
+									<span>${time} ago</span>
+								</div>
+							</li>
+						`)
+			} else {
+				throw new Error('undefined type of notification');
+			}
+		}
 	}
 	
 	return {
 		refreshBooks: refreshBooks,
+		rateBooks: rateBooks,
 		addEventListeners: addEventListeners,
 		makeFilterCriterionActive: makeFilterCriterionActive,
 		addBook: addBook,
-		setController: setController
+		refreshNotifications: refreshNotifications
 	};
 })();

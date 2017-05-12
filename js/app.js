@@ -1,12 +1,3 @@
-(function () {
-	'use strict';
-	
-	// var model = new BookStorage();
-	// var view = new View();
-	// var controller = new Controller();
-})();
-
-
 function showMenu() {
 	'use strict';
 	
@@ -20,3 +11,6 @@ function showMenu() {
 		el.style.height = "0";
 	}
 }
+
+View.refreshBooks(BookStorage.getBooks());
+View.addEventListeners();

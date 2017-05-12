@@ -513,7 +513,7 @@ body {
     box-sizing: border-box;
     color: #78829d;
     font: .8rem 'Proxima Nova', Tahoma, Arial;
-    height: 347px;
+    /*height: 347px;*/
     padding: 20px;
     padding-top: 6px;
 }
@@ -541,7 +541,7 @@ body {
     text-transform: capitalize;
 }
 
-.history-list .category + span {
+.history-list span {
     display: block;
     font-weight: 100;
     margin-top: 10px;
@@ -599,7 +599,7 @@ body {
     font-size: .8rem;
     height: 20px;
     line-height: 20px;
-    padding: 0 10px;
+    padding: 1px 10px 0;
     border-radius: 9px;
     background: none;
     border: none;
@@ -607,9 +607,10 @@ body {
 }
 
 .filter-books__criterion:hover {
-    padding: 0 9px;
+    padding: 0 10px;
     /*border: 1px solid #97b3ce;*/
-    border: 1px solid #87a0bb;
+    border-top: 1px solid #a0bed9;
+    border-bottom: 2px solid #87a0bb;
 }
 
 .filter-books__criterion--active {

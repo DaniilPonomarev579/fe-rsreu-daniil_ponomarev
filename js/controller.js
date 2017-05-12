@@ -1,65 +1,59 @@
-var Controller = (function (BookStorage, View) {
+var Controller = (function () {
 	'use strict';
 	
-	// var model = BookStorage;
-	View.setController(this);
-	// var view = View;
+	function isNumber(value) {
+		return typeof value === 'number' && !isNaN(value);
+	}
 	
+	function isString(value) {
+		return typeof value === 'string';
+	}
 	
 	function provideAllBooks() {
-		'use strict';
-		
-		// Move to view
-		View.makeFilterCriterionActive(this);
-		
-		var books = BookStorage.getBooks();
+		let books = BookStorage.getBooks();
 		View.refreshBooks(books);
-		
-		// Move to view
-		View.addEventListeners();
 	}
 	
 	function provideMostPopularBooks() {
-		'use strict';
-		
-		View.makeFilterCriterionActive(this);
 		View.refreshBooks(BookStorage.getMostPopularBooks());
-		View.addEventListeners();
 	}
 	
-	function provideSearchBooks() {
-		'use strict';
-		
-		View.refreshBooks(BookStorage.getSearchedBooks(this.value));
-		View.addEventListeners();
+	function provideSearchBooks(keywords) {
+		View.refreshBooks(BookStorage.getSearchedBooks(keywords));
 	}
 	
 	function rateBooks(bookId, rating) {
-		'use strict';
-		
-		BookStorage.rateBook(
-				this.parentNode.parentNode.id,
-				this.getAttribute('rating')
-		);
+		BookStorage.rateBook(bookId, rating);
 	}
 	
 	function addNewBook(title, author, cover) {
-		'use strict';
-		
 		console.log(`${title} ${author} ${cover}`);
 		BookStorage.addBookToBookStorage(title, author, cover);
 		View.refreshBooks(BookStorage.getBooks());
-		// Controller.view.addEventListeners();
 	}
 	
-	View.refreshBooks(BookStorage.getBooks());
-	View.addEventListeners();
+	function addNotification(type) {
+		NotificationStorage.addNotification(type, new Date(),arguments);
+		
+		View.refreshNotifications(NotificationStorage.getNotifications());
+		View.refreshNotifications(NotificationStorage.getNotifications());
+	}
+	
+	function refreshNotifications() {
+		View.refreshNotifications(NotificationStorage.getNotifications());
+	}
+	
+	setInterval(refreshNotifications, 1000);
 	
 	return {
-	provideAllBooks: provideAllBooks,
-	provideMostPopularBooks: provideMostPopularBooks,
-	provideSearchBooks: provideSearchBooks,
-	rateBooks: rateBooks,
-	addNewBook: addNewBook
+		isNumber: isNumber,
+		isString: isString,
+		provideAllBooks: provideAllBooks,
+		provideMostPopularBooks: provideMostPopularBooks,
+		provideSearchBooks: provideSearchBooks,
+		rateBooks: rateBooks,
+		addNewBook: addNewBook,
+		addNotification: addNotification,
+		refreshNotifications: refreshNotifications
 	}
-})(BookStorage, View);
+})();

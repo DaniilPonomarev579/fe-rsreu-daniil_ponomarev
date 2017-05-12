@@ -1,88 +1,102 @@
 var BookStorage = (function () {
 	'use strict';
 	
-	var books = [];
-	var staticId = 0;
+	function isNumber(value) {
+		return typeof value === 'number' && !isNaN(value);
+	}
 	
-	books.push(
-			{
-				id: staticId++,
-				title: 'Jewels of Nizam',
-				author: 'Geeta Devi',
-				rating: 3,
-				cover: 'css/images/covers/1.png'
-			},
-			{
-				id: staticId++,
-				title: 'Cakes &amp; Bakes',
-				author: 'Sanjeev Kapoor',
-				rating: 3,
-				cover: 'css/images/covers/2.png'
-			},
-			{
-				id: staticId++,
-				title: 'Jamie’s Kitchen',
-				author: 'Jamie Oliver',
-				rating: 5,
-				cover: 'css/images/covers/3.png'
-			},
-			{
-				id: staticId++,
-				title: 'Inexpensive Family Meals',
-				author: 'Simon Holst',
-				rating: 4,
-				cover: 'css/images/covers/4.png'
-			},
-			{
-				id: staticId++,
-				title: 'Paleo Slow Cooking',
-				author: 'Chrissy Gower',
-				rating: 2,
-				cover: 'css/images/covers/5.png'
-			},
-			{
-				id: staticId++,
-				title: 'Cook Like an Italian',
-				author: 'Tobie Puttock',
-				rating: 1,
-				cover: 'css/images/covers/6.png'
-			},
-			{
-				id: staticId++,
-				title: 'Suneeta Vaswani',
-				author: 'Geeta Devi',
-				rating: 4,
-				cover: 'css/images/covers/7.png'
-			},
-			{
-				id: staticId++,
-				title: 'Jamie Does',
-				author: 'Jamie Oliver',
-				rating: 5,
-				cover: 'css/images/covers/8.png'
-			},
-			{
-				id: staticId++,
-				title: 'Jamie’s italy',
-				author: 'Jamie Oliver',
-				rating: 3,
-				cover: 'css/images/covers/9.png'
-			},
-			{
-				id: staticId++,
-				title: 'Vegetables Cookbook',
-				author: 'Matthew Biggs',
-				rating: 5,
-				cover: 'css/images/covers/10.png'
-			}
+	function isString(value) {
+		return typeof value === 'string';
+	}
+	
+	let books = [];
+	let staticId = 0;
+	
+	books.push(new Book(
+			staticId++,
+			'Jewels of Nizam',
+			'Geeta Devi',
+			3,
+			'css/images/covers/1.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Cakes &amp; Bakes',
+			'Sanjeev Kapoor',
+			3,
+			'css/images/covers/2.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Jamie’s Kitchen',
+			'Jamie Oliver',
+			5,
+			'css/images/covers/3.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Inexpensive Family Meals',
+			'Simon Holst',
+			4,
+			'css/images/covers/4.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Paleo Slow Cooking',
+			'Chrissy Gower',
+			2,
+			'css/images/covers/5.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Cook Like an Italian',
+			'Tobie Puttock',
+			1,
+			'css/images/covers/6.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Suneeta Vaswani',
+			'Geeta Devi',
+			4,
+			'css/images/covers/7.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Jamie Does',
+			'Jamie Oliver',
+			5,
+			'css/images/covers/8.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Jamie’s italy',
+			'Jamie Oliver',
+			3,
+			'css/images/covers/9.png'
+			)
+	);
+	books.push(new Book(
+			staticId++,
+			'Vegetables Cookbook',
+			'Matthew Biggs',
+			5,
+			'css/images/covers/10.png'
+			)
 	);
 	
 	function getMostPopularBooks() {
-		'use strict';
+		let mostPopularBooks = [];
 		
-		var mostPopularBooks = [];
-		
-		for (var i = 0; i < books.length; i++) {
+		for (let i = 0; i < books.length; i++) {
 			if (books[i].rating === 5) {
 				mostPopularBooks.push(books[i]);
 			}
@@ -92,11 +106,9 @@ var BookStorage = (function () {
 	}
 	
 	function getSearchedBooks(keywords) {
-		'use strict';
+		let searchedBooks = [];
 		
-		var searchedBooks = [];
-		
-		for (var i = 0; i < books.length; i++) {
+		for (let i = 0; i < books.length; i++) {
 			if (books[i].title.indexOf(keywords) !== -1) {
 				searchedBooks.push(books[i]);
 			}
@@ -106,11 +118,9 @@ var BookStorage = (function () {
 	}
 	
 	function rateBook(id, rating) {
-		'use strict';
-		
-		for (var i = 0; i < books.length; i++) {
+		for (let i = 0; i < books.length; i++) {
 			if (books[i].id === id) {
-				books[i].rating = +rating;
+				books[i].rating = rating;
 			}
 			
 			console.log(books[i]);
@@ -118,8 +128,6 @@ var BookStorage = (function () {
 	}
 	
 	function addBookToBookStorage(title, author, cover) {
-		'use strict';
-				
 		books.push(
 				new Book(
 						staticId++,
@@ -130,7 +138,7 @@ var BookStorage = (function () {
 				)
 		);
 		
-		for (var i = 0; i < books.length; i++) {
+		for (let i = 0; i < books.length; i++) {
 			console.log(books[i]);
 		}
 	}
@@ -138,8 +146,10 @@ var BookStorage = (function () {
 	function getBooks() {
 		return books;
 	}
-		
+	
 	return {
+		isNumber: isNumber,
+		isString: isString,
 		getMostPopularBooks: getMostPopularBooks,
 		getSearchedBooks: getSearchedBooks,
 		rateBook: rateBook,
@@ -149,6 +159,16 @@ var BookStorage = (function () {
 })();
 
 function Book(id, title, author, rating, cover) {
+	'use strict';
+	
+	if (!Controller.isNumber(id) ||
+			!Controller.isNumber(rating) ||
+			!Controller.isString(title) ||
+			!Controller.isString(author) ||
+			!Controller.isString(cover)) {
+		throw new Error('Incorrect data');
+	}
+	
 	this.id = id;
 	this.title = title;
 	this.author = author;
