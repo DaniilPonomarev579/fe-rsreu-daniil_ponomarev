@@ -158,7 +158,7 @@ var View = (function () {
 			var hours = Math.floor(difference / (1000 * 60 * 60)) === 0 ?
 					'' : Math.floor(difference / (1000 * 60 * 60)) + ' hours <br>';
 			var minutes = Math.floor(difference / (1000 * 60)) === 0 ?
-					'' : Math.floor(difference / (1000 * 60)) + ' minutes <br>';
+					'' : Math.floor(difference / (1000 * 60)) % 60 + ' minutes <br>';
 			
 			var time =
 					hours +
