@@ -8,13 +8,13 @@ var NotificationStorage = (function () {
 			notifications.shift();
 		}
 		
-		if (type === 'addBook') {
+		if (type === NOTIFICATION_ADD_BOOK) {
 			notifications.push(new NotificationAddBook(type, time, arguments[2][1], arguments[2][2]));
-		} else if (type === 'filter') {
+		} else if (type === NOTIFICATION_FILTER) {
 			notifications.push(new NotificationFilter(type, time, arguments[2][1]));
-		} else if (type === 'search') {
+		} else if (type === NOTIFICATION_SEARCH) {
 			notifications.push(new NotificationSearch(type, time, arguments[2][1]));
-		} else if (type === 'rating') {
+		} else if (type === NOTIFICATION_RATING) {
 			notifications.push(new NotificationRating(type, time, arguments[2][1], arguments[2][2]));
 		} else {
 			throw new Error('undefined type');
@@ -30,37 +30,3 @@ var NotificationStorage = (function () {
 		getNotifications: getNotifications
 	};
 })();
-
-function NotificationAddBook(type, time, title, author) {
-	'use strict';
-	
-	this.type = type;
-	this.time = time;
-	this.title = title;
-	this.author = author;
-}
-
-function NotificationFilter(type, time, criterion) {
-	'use strict';
-	
-	this.type = type;
-	this.time = time;
-	this.criterion = criterion;
-}
-
-function NotificationSearch(type, time, keywords) {
-	'use strict';
-	
-	this.type = type;
-	this.time = time;
-	this.keywords = keywords;
-}
-
-function NotificationRating(type, time, title, rating) {
-	'use strict';
-	
-	this.type = type;
-	this.time = time;
-	this.title = title;
-	this.rating = rating;
-}

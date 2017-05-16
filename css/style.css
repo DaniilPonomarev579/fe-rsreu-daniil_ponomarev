@@ -597,9 +597,9 @@ body {
     text-decoration: none;
     color: #8c97b2;
     font-size: .8rem;
-    height: 20px;
+    height: 21px;
     line-height: 20px;
-    padding: 1px 10px 0;
+    padding: 2px 10px 5px;
     border-radius: 9px;
     background: none;
     border: none;
@@ -607,10 +607,17 @@ body {
 }
 
 .filter-books__criterion:hover {
+    padding: 1px 10px;
+    /*border: 1px solid #97b3ce;*/
+    border-top: 1px solid #a3c1dc;
+    border-bottom: 2px solid #788da8;
+}
+
+.filter-books__criterion:active {
     padding: 0 10px;
     /*border: 1px solid #97b3ce;*/
-    border-top: 1px solid #a0bed9;
-    border-bottom: 2px solid #87a0bb;
+    border-top: 1px solid #a3c1dc;
+    border-bottom: 2px solid #788da8;
 }
 
 .filter-books__criterion--active {

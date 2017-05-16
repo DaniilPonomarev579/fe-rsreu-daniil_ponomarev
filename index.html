@@ -34,7 +34,7 @@
 		</header>
 		
 		<div class="main">
-			<button class="toggle-menu" onclick="showMenu()">≡</button>
+			<button class="toggle-menu" id="toggleMenu">≡</button>
 			
 			<aside class="sidebar" id="sidebar">
 				<div class="add-a-book-panel">
@@ -129,19 +129,24 @@
 		
 		<footer class="footer">
 			<ul class="footer-menu">
-				<li><a href="" class="footer-menu__element footer-menu__element--support">Support</a>
+				<li><a href="#" class="footer-menu__element footer-menu__element--support">Support</a>
 				</li>
-				<li><a href="" class="footer-menu__element footer-menu__element--setting">Setting</a>
+				<li><a href="#" class="footer-menu__element footer-menu__element--setting">Setting</a>
 				</li>
 			</ul>
 		</footer>
 	</div>
 
 	<!--    <script src="http://pixp.fdrv.guru/pixp.js" type="text/javascript"></script>-->
-	<script src="js/view.js"></script>
-	<script src="js/notificationStorage.js"></script>
-	<script src="js/controller.js"></script>
-	<script src="js/bookStorage.js"></script>
+	<script src="js/constants/NotificationTypes.js"></script>
+	<script src="js/utils/Utils.js"></script>
+	<script src="js/model/BookModel.js"></script>
+	<script src="js/model/NotificationModel.js"></script>
+	<script src="js/view/BookView.js"></script>
+	<script src="js/controller/Controller.js"></script>
+	<script src="js/view/NotificationView.js"></script>
+	<script src="js/storage/NotificationStorage.js"></script>
+	<script src="js/storage/BookStorage.js"></script>
 	<script src="js/app.js"></script>
 
 </body>
