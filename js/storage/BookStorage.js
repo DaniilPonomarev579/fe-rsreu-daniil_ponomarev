@@ -100,6 +100,18 @@ var BookStorage = (function () {
 		return searchedBooks;
 	}
 	
+	function getSearchedMostPopularBooks(keywords) {
+		let searchedMostPopularBooks = [];
+		
+		for (let i = 0; i < books.length; i++) {
+			if (books[i].title.indexOf(keywords) !== -1 && books[i].rating === 5) {
+				searchedMostPopularBooks.push(books[i]);
+			}
+		}
+		
+		return searchedMostPopularBooks;
+	}
+	
 	function rateBook(id, rating) {
 		for (let i = 0; i < books.length; i++) {
 			if (books[i].id === id) {
@@ -133,6 +145,7 @@ var BookStorage = (function () {
 	return {
 		getMostPopularBooks: getMostPopularBooks,
 		getSearchedBooks: getSearchedBooks,
+		getSearchedMostPopularBooks: getSearchedMostPopularBooks,
 		rateBook: rateBook,
 		addBookToBookStorage: addBookToBookStorage,
 		getBooks: getBooks

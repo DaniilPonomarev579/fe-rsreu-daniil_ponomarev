@@ -14,6 +14,10 @@ var Controller = (function () {
 		bookView.refreshBooks(BookStorage.getSearchedBooks(keywords));
 	}
 	
+	function provideSearchMostPopularBooks(keywords) {
+		bookView.refreshBooks(BookStorage.getSearchedMostPopularBooks(keywords));
+	}
+	
 	function rateBooks(bookId, rating) {
 		BookStorage.rateBook(bookId, rating);
 	}
@@ -25,7 +29,7 @@ var Controller = (function () {
 	}
 	
 	function addNotification(type) {
-		NotificationStorage.addNotification(type, new Date(),arguments);
+		NotificationStorage.addNotification(type, new Date(), arguments);
 		
 		notificationView.refreshNotifications(NotificationStorage.getNotifications());
 		notificationView.refreshNotifications(NotificationStorage.getNotifications());
@@ -39,6 +43,7 @@ var Controller = (function () {
 		provideAllBooks: provideAllBooks,
 		provideMostPopularBooks: provideMostPopularBooks,
 		provideSearchBooks: provideSearchBooks,
+		provideSearchMostPopularBooks: provideSearchMostPopularBooks,
 		rateBooks: rateBooks,
 		addNewBook: addNewBook,
 		addNotification: addNotification,

@@ -7,10 +7,6 @@ var bookView = (function () {
 		divRating.className = 'book__rating';
 		
 		for (let j = 5; j > 0; j--) {
-			
-			// TODO: Replace with createElement
-			// Add event listeners on element
-			
 			let inputRating = document.createElement('input');
 			
 			inputRating.title = 'Rating: ' + j;
@@ -18,7 +14,7 @@ var bookView = (function () {
 			inputRating.name = 'book-rating-' + books[i].id;
 			inputRating.classList.add('rating-star', 'rating-star-' + j);
 			inputRating.setAttribute('rating', j);
-			if (j===books[i].rating) {
+			if (j === books[i].rating) {
 				inputRating.setAttribute('checked', 'true');
 			}
 			inputRating.addEventListener('change', rateBooks);
@@ -42,57 +38,6 @@ var bookView = (function () {
 		let fragment = document.createDocumentFragment();
 		
 		for (let i = 0; i < books.length; i++) {
-			// let divRating = document.createElement('div');
-			//
-			// divRating.className = 'book__rating';
-			//
-			// let star = document.createElement('input');
-			//
-			// for (let j = 5; j > 0; j--) {
-			//
-			// 	let inputRating = document.createElement('input');
-			//
-			// 	inputRating.title = 'Rating: ' + j;
-			// 	inputRating.type = 'radio';
-			// 	inputRating.name = 'book-rating-' + books[i].id;
-			// 	inputRating.classList.add('rating-star', 'rating-star-' + j);
-			// 	inputRating.setAttribute('rating', j);
-			// 	if (j===books[i].rating) {
-			// 		inputRating.setAttribute('checked', 'true');
-			// 	}
-			// 	inputRating.addEventListener('change', rateBooks);
-			//
-			// 	let labelRating = document.createElement('label');
-			//
-			// 	labelRating.title = 'Rating: ' + j;
-			//
-			// 	divRating.appendChild(inputRating);
-			// 	divRating.appendChild(labelRating);
-			//
-			// 	// divRating.insertAdjacentHTML(
-			// 	// 		'beforeEnd',
-			// 	// 		`
-			// 	// 			<input
-			// 	// 				title="Rating: ${j}"
-			// 	// 				type="radio"
-			// 	// 				name="book-rating-${books[i].id}"
-			// 	// 				class="rating-star rating-star-${j}"
-			// 	// 				rating="${j}"
-			// 	// 			>
-			// 	// 			<label title="Rating: ${j}"></label>
-			// 	// 		`
-			// 	// );
-			// }
-			//
-			// // let stars = divRating.children;
-			// //
-			// // for (let j = 0; j < stars.length; j++) {
-			// // 	if (stars[j].className ===
-			// // 			'rating-star rating-star-' + books[i].rating) {
-			// // 		stars[j].setAttribute('checked', 'true');
-			// // 	}
-			// // }
-			
 			let element = document.createElement(`li`);
 			element.id = books[i].id;
 			
@@ -105,17 +50,13 @@ var bookView = (function () {
 				
 				<a href="#" class="book__title">${books[i].title}</a>
 				<h3 class="book__author">by ${books[i].author}</h3>
-				<div class="book__rating">
-					${createDivRating(i, books).innerHTML}
-				</div>
 			`;
+			element.appendChild(createDivRating(i, books));
 			
 			fragment.appendChild(element);
 		}
 		
 		filterResultsList.appendChild(fragment);
-		
-		addStarEventListener();
 	}
 	
 	function rateBooks() {
@@ -126,31 +67,32 @@ var bookView = (function () {
 		
 		Controller.addNotification(
 				'rating',
-				this.parentNode.parentNode.childNodes[3].innerHTML,
+				this.parentNode.parentNode.children[1].innerHTML,
 				+this.getAttribute('rating')
 		);
-	}
-	
-	function addStarEventListener() {
-		let stars = document.getElementsByClassName('rating-star');
-		
-		for (let i = 0; i < stars.length; i++) {
-			stars[i].addEventListener('change', rateBooks);
-		}
 	}
 	
 	function provideBooks() {
 		if (this.id === 'allBooks') {
 			makeFilterCriterionActive(this);
+			document.getElementById('searchKeywords').value = '';
 			Controller.provideAllBooks();
 			Controller.addNotification(NOTIFICATION_FILTER, 'allBooks');
 		} else if (this.id === 'mostPopular') {
 			makeFilterCriterionActive(this);
+			document.getElementById('searchKeywords').value = '';
 			Controller.provideMostPopularBooks();
 			Controller.addNotification(NOTIFICATION_FILTER, 'mostPopular');
 		} else if (this.id === 'searchKeywords') {
-			Controller.provideSearchBooks(this.value);
-			Controller.addNotification('search', this.value);
+			if ('filter-books__criterion--active' ===
+					document.getElementById('mostPopular').classList[1]) {
+				Controller.provideSearchMostPopularBooks(this.value);
+				Controller.addNotification('search', this.value);
+			}
+			else {
+				Controller.provideSearchBooks(this.value);
+				Controller.addNotification('search', this.value);
+			}
 		}
 	}
 	
