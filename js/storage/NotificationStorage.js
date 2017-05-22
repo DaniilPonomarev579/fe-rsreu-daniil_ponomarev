@@ -19,6 +19,10 @@ var NotificationStorage = (function () {
 		} else {
 			throw new Error('undefined type');
 		}
+		
+		setTimeout(function () {
+			notifications.shift();
+		}, 3000);
 	}
 	
 	function getNotifications() {
