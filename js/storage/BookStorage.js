@@ -112,30 +112,73 @@ var BookStorage = (function () {
 		return searchedMostPopularBooks;
 	}
 	
-	function rateBook(id, rating) {
-		for (let i = 0; i < books.length; i++) {
-			if (books[i].id === id) {
-				books[i].rating = rating;
-			}
-			
-			console.log(books[i]);
-		}
+	function rateBook(bookId, rating, filter) {
+		// for (let i = 0; i < books.length; i++) {
+		// 	if (books[i].id === bookId) {
+		// 		books[i].rating = rating;
+		// 	}
+		//
+		// 	console.log(books[i]);
+		// }
+		
+		let body = 'bookId=' + encodeURIComponent(bookId) +
+				'&rating=' + encodeURIComponent(rating);
+		
+		// fetch('rateBook', {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/x-www-form-urlencoded'
+		// 	},
+		// 	body: body
+		// })
+		// 		.then(function (response) {
+		// 			console.log(1);
+		// 			console.log(response.status);
+		// 			console.log(response.statusText);
+		// 			return response.json();
+		// 		})
+		// 		.catch(function (response) {
+		// 			console.log(response.status + ': ' + response.statusText);
+		// 		});
+		
+		fetch('rateBook?' + body, {
+			method: 'GET'
+		})
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (book) {
+					// console.log(book);
+					books[bookId] = book;
+				})
+				.catch(function (response) {
+					console.log(response.status + ': ' + response.statusText);
+				});
 	}
 	
 	function addBookToBookStorage(title, author, cover) {
-		books.push(
-				new Book(
-						staticId++,
-						title,
-						author,
-						0,
-						cover
-				)
-		);
+		let body = 'title=' + encodeURIComponent(title) +
+				'&author=' + encodeURIComponent(author) +
+				'&cover=' + encodeURIComponent((cover));
 		
-		for (let i = 0; i < books.length; i++) {
-			console.log(books[i]);
-		}
+		fetch('addBook?' + body, {
+			method: 'GET'
+		})
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (book) {
+					// console.log(book);
+					books.push(book);
+					Controller.provideAllBooks();
+				})
+				.catch(function (response) {
+					console.log(response.status + ': ' + response.statusText);
+				});
+		
+		// for (let i = 0; i < books.length; i++) {
+		// 	console.log(books[i]);
+		// }
 	}
 	
 	function setBooks(newBooks) {

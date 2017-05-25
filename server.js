@@ -3,8 +3,7 @@ var path = require("path");
 var fs = require("fs");
 var checkMimeType = true;
 var PORT_NUMBER = 8000;
-
-var staticId=0;
+var staticId = 0;
 var books = [
 	new Book(
 			staticId++,
@@ -20,7 +19,7 @@ var books = [
 			3,
 			'css/images/covers/2.png'
 	),
-
+	
 	new Book(
 			staticId++,
 			'Jamie’s Kitchen',
@@ -77,7 +76,7 @@ var books = [
 			5,
 			'css/images/covers/10.png'
 	)
-		
+	
 	// {
 	// 	title: 'Jewels of Nizam',
 	// 	author: 'Geeta Devi',
@@ -152,7 +151,7 @@ http.createServer(function (req, res) {
 		return;
 	}
 	
-	if (filename.slice(0,9) === '/rateBook') {
+	if (filename.slice(0, 9) === '/rateBook') {
 		// console.log(req.body);
 		// console.log(res.body);
 		// console.log(res.responseText);
@@ -160,7 +159,7 @@ http.createServer(function (req, res) {
 		return;
 	}
 	
-	if (filename.slice(0,8) === '/addBook') {
+	if (filename.slice(0, 8) === '/addBook') {
 		onAddBook(req, res);
 		return;
 	}
@@ -243,7 +242,7 @@ function onRateBook(req, res) {
 	
 	res.setHeader("Content-Type", "application/json");
 	res.statusCode = 200;
-	res.end(JSON.stringify(books));
+	res.end(JSON.stringify(books[bookId]));
 }
 
 function onAddBook(req, res) {
@@ -258,7 +257,7 @@ function onAddBook(req, res) {
 	
 	res.setHeader("Content-Type", "application/json");
 	res.statusCode = 200;
-	res.end(JSON.stringify(books));
+	res.end(JSON.stringify(books[books.length-1]));
 }
 
 console.log("Starting web server at localhost:" + PORT_NUMBER);

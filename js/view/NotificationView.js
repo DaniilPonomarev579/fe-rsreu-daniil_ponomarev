@@ -71,6 +71,13 @@ var notificationView = (function () {
 						`
 	}
 	
+	function clearNotification(notification) {
+		var timeoutId = setTimeout(function () {
+			// TODO: Remove element
+			clearTimeout(timeoutId);
+		}, 3000);
+	}
+	
 	function refreshNotifications(notifications) {
 		let notificationsList = document.querySelector('.history-list ul');
 		
@@ -100,6 +107,8 @@ var notificationView = (function () {
 			} else {
 				throw new Error('undefined type of notification');
 			}
+			
+			clearNotification(notifications[i]);
 		}
 	}
 	

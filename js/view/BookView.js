@@ -60,9 +60,19 @@ var bookView = (function () {
 	}
 	
 	function rateBooks() {
+		let filter;
+		if ('filter-books__criterion--active' ===
+				document.getElementById('mostPopular').classList[1]) {
+			filter = 'mostPopular';
+		}
+		else {
+			filter = 'allBooks';
+		}
+		
 		Controller.rateBooks(
 				+this.parentNode.parentNode.id,
-				+this.getAttribute('rating')
+				+this.getAttribute('rating'),
+				filter
 		);
 		
 		Controller.addNotification(
