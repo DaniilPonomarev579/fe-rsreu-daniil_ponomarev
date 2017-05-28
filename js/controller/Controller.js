@@ -1,6 +1,8 @@
 var Controller = (function () {
 	'use strict';
 	
+	let currentNotifications = [];
+	
 	function provideAllBooks() {
 		let books = BookStorage.getBooks();
 		bookView.refreshBooks(books);
@@ -24,55 +26,62 @@ var Controller = (function () {
 	
 	function setBooks() {
 		let xhr = new XMLHttpRequest();
+		//
+		// xhr.open('GET', 'getBooks', true);
+		//
+		// xhr.onreadystatechange = function () {
+		// 	if (xhr.readyState != 4) {
+		// 		return;
+		// 	}
+		//
+		// 	if (xhr.status != 200) {
+		// 		console.log(xhr.status + ': ' + xhr.statusText);
+		// 	} else {
+		// 		BookStorage.setBooks(JSON.parse(xhr.responseText));
+		// 		bookView.refreshBooks(BookStorage.getBooks());
+		// 	}
+		// };
+		//
+		// xhr.send();
 		
-		xhr.open('GET', 'getBooks', true);
-		
-		xhr.onreadystatechange = function () {
+		RequestService.makeRequest(xhr, 'GET', 'getBooks', function () {
 			if (xhr.readyState != 4) {
 				return;
 			}
-			
+
 			if (xhr.status != 200) {
 				console.log(xhr.status + ': ' + xhr.statusText);
 			} else {
 				BookStorage.setBooks(JSON.parse(xhr.responseText));
 				bookView.refreshBooks(BookStorage.getBooks());
 			}
-		};
-		
-		xhr.send();
-		
-		RequestService.makeRequest('GET', 'getBooks', function () {
-			if (xhr.readyState != 4) {
-				return;
-			}
-			
-			if (xhr.status != 200) {
-				console.log(xhr.status + ': ' + xhr.statusText);
-			} else {
-				BookStorage.setBooks(JSON.parse(xhr.responseText));
-				bookView.refreshBooks(BookStorage.getBooks());
-			}//todo
 		});
 	}
 	
 	function addNewBook(title, author, cover) {
-		// console.log(`${title} ${author} ${cover}`);
-		//BookStorage.addBookToBookStorage(title, author, cover);
-		// bookView.refreshBooks(BookStorage.getBooks());
-		
 		BookStorage.addBookToBookStorage(title, author, cover);
+	}
+	
+	function clearNotification() {
+		let timeoutId = setTimeout(function () {
+			currentNotifications.shift();
+			clearTimeout(timeoutId);
+		}, 3000);
 	}
 	
 	function addNotification(type) {
 		NotificationStorage.addNotification(type, new Date(), arguments);
 		
-		notificationView.refreshNotifications(NotificationStorage.getNotifications());
-		notificationView.refreshNotifications(NotificationStorage.getNotifications());
+		let notifications = NotificationStorage.getNotifications();
+		
+		currentNotifications.push(notifications[notifications.length - 1]);
+		clearNotification();
+		
+		notificationView.refreshNotifications(currentNotifications);
 	}
 	
 	function refreshNotifications() {
-		notificationView.refreshNotifications(NotificationStorage.getNotifications());
+		notificationView.refreshNotifications(currentNotifications);
 	}
 	
 	setBooks();

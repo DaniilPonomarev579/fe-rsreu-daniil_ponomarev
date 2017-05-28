@@ -1,34 +1,35 @@
-function Notification(type, time) {
+function Notification(id, type, time) {
+	this.id = id;
 	this.type = type;
 	this.time = time;
 }
 
-function NotificationAddBook(type, time, title, author) {
+function NotificationAddBook(id, type, time, title, author) {
 	'use strict';
 	
-	Notification.call(this, type, time);
+	Notification.call(this, id, type, time);
 	this.title = title;
 	this.author = author;
 }
 
-function NotificationFilter(type, time, criterion) {
+function NotificationFilter(id, type, time, criterion) {
 	'use strict';
 	
-	Notification.call(this, type, time);
+	Notification.call(this, id, type, time);
 	this.criterion = criterion;
 }
 
-function NotificationSearch(type, time, keywords) {
+function NotificationSearch(id, type, time, keywords) {
 	'use strict';
 	
-	Notification.call(this, type, time);
+	Notification.call(this, id, type, time);
 	this.keywords = keywords;
 }
 
-function NotificationRating(type, time, title, rating) {
+function NotificationRating(id, type, time, title, rating) {
 	'use strict';
 	
-	Notification.call(this, type, time);
+	Notification.call(this, id, type, time);
 	this.title = title;
 	this.rating = rating;
 }

@@ -17,7 +17,7 @@ var notificationView = (function () {
 		let timeString = makeTimeString(notification.time);
 		
 		return `
-							<li>
+							<li id="${notification.id}">
 								<div class="history-list-item"> 
 									You added 
 									<a href="#" class="title">${notification.title}</a> 
@@ -32,7 +32,7 @@ var notificationView = (function () {
 		let timeString = makeTimeString(notification.time);
 		
 		return `
-							<li>
+							<li id="${notification.id}">
 								<div class="history-list-item"> 
 									You filtered books 
 									by <a href="#">${notification.criterion}</a> 
@@ -46,7 +46,7 @@ var notificationView = (function () {
 		let timeString = makeTimeString(notification.time);
 		
 		return `
-							<li>
+							<li id="${notification.id}">
 								<div class="history-list-item"> 
 									You searched 
 									<a href="#">${notification.keywords}</a> 
@@ -60,7 +60,7 @@ var notificationView = (function () {
 		let timeString = makeTimeString(notification.time);
 		
 		return `
-							<li>
+							<li id="${notification.id}">
 								<div class="history-list-item"> 
 									You rated  
 									<a href="#" class="title">${notification.title}</a> 
@@ -71,12 +71,13 @@ var notificationView = (function () {
 						`
 	}
 	
-	function clearNotification(notification) {
-		var timeoutId = setTimeout(function () {
-			// TODO: Remove element
-			clearTimeout(timeoutId);
-		}, 3000);
-	}
+	// function clearNotification(notification) {
+	// 		let timeoutId = setTimeout(function () {
+	// 			let notificationElement = document.querySelector('#' + notification.id);
+	// 			notificationElement.parentNode.removeChild(notificationElement);
+	// 			clearTimeout(timeoutId);
+	// 		}, 3000);
+	// }
 	
 	function refreshNotifications(notifications) {
 		let notificationsList = document.querySelector('.history-list ul');
@@ -108,7 +109,7 @@ var notificationView = (function () {
 				throw new Error('undefined type of notification');
 			}
 			
-			clearNotification(notifications[i]);
+			// clearNotification(notifications[i]);
 		}
 	}
 	
