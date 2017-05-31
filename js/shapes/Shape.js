@@ -48,5 +48,5 @@ class Shape2 {
 	}
 }
 
-let shape2 = new Shape2('Shape');
+let shape2 = new Shape2('Shape2');
 shape2.draw();
