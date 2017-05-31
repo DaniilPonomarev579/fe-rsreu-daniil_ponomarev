@@ -26,7 +26,7 @@ var Controller = (function () {
 	
 	function setBooks() {
 		let xhr = new XMLHttpRequest();
-		//
+
 		// xhr.open('GET', 'getBooks', true);
 		//
 		// xhr.onreadystatechange = function () {

@@ -31,7 +31,8 @@ var BookStorage = (function () {
 		let searchedMostPopularBooks = [];
 		
 		for (let i = 0; i < books.length; i++) {
-			if (books[i].title.indexOf(keywords) !== -1 && books[i].rating === 5) {
+			if (books[i].title.indexOf(keywords) !== -1 &&
+					books[i].rating === 5) {
 				searchedMostPopularBooks.push(books[i]);
 			}
 		}
@@ -39,13 +40,34 @@ var BookStorage = (function () {
 		return searchedMostPopularBooks;
 	}
 	
+	function fetchTimer(fetchPromise) {
+		let timer;
+		
+		return Promise.race([
+			fetchPromise
+					.then(function (response) {
+						clearTimeout(timer);
+						return response;
+					}),
+			new Promise(function (resolve, reject) {
+				timer = setTimeout(function () {
+					console.log('Timeout!');
+					clearTimeout(timer);
+					reject();
+				}, 5000);
+			})
+		]);
+	}
+	
 	function rateBook(bookId, rating) {
 		let body = 'bookId=' + encodeURIComponent(bookId) +
 				'&rating=' + encodeURIComponent(rating);
 		
-		fetch('rateBook?' + body, {
-			method: 'GET'
-		})
+		fetchTimer(
+				fetch('rateBook?' + body, {
+					method: 'GET'
+				})
+		)
 				.then(function (response) {
 					return response.json();
 				})
@@ -53,8 +75,32 @@ var BookStorage = (function () {
 					books[bookId] = book;
 				})
 				.catch(function (response) {
-					console.log(response.status + ': ' + response.statusText);
+					// console.log(response);
 				});
+		
+		// let timer = null;
+		// let fetchPromise = Promise.race([
+		// 	fetch('rateBook?' + body, {
+		// 		method: 'GET'
+		// 	})
+		// 			.then(function (response) {
+		// 				clearTimeout(timer);
+		// 				return response.json();
+		// 			})
+		// 			.then(function (book) {
+		// 				books[bookId] = book;
+		// 			})
+		// 			.catch(function (response) {
+		// 				// console.log(response);
+		// 			}),
+		//
+		// 	new Promise(function (resolve, reject) {
+		// 		timer = setTimeout(function () {
+		// 			console.log('Timed out!');
+		// 			reject();
+		// 		}, 5000);
+		// 	})
+		// ]);
 	}
 	
 	function addBookToBookStorage(title, author, cover) {
@@ -62,20 +108,29 @@ var BookStorage = (function () {
 				'&author=' + encodeURIComponent(author) +
 				'&cover=' + encodeURIComponent((cover));
 		
-		fetch('addBook?' + body, {
-			method: 'GET'
-		})
-				.then(function (response) {
-					return response.json();
-				})
-				.then(function (book) {
-					// console.log(book);
-					books.push(book);
-					Controller.provideAllBooks();
-				})
-				.catch(function (response) {
-					console.log(response.status + ': ' + response.statusText);
-				});
+		let timer = null;
+		let fetchPromise = Promise.race([
+			fetch('addBook?' + body, {
+				method: 'GET'
+			})
+					.then(function (response) {
+						clearTimeout(timer);
+						return response.json();
+					})
+					.then(function (book) {
+						books.push(book);
+						Controller.provideAllBooks();
+					})
+					.catch(function (response) {
+						// console.log(response);
+					}),
+			new Promise(function (resolve, reject) {
+				timer = setTimeout(function () {
+					console.log('Timed out!');
+					reject();
+				}, 5000);
+			})
+		]);
 	}
 	
 	function setBooks(newBooks) {
