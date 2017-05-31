@@ -51,7 +51,7 @@ var BookStorage = (function () {
 					}),
 			new Promise(function (resolve, reject) {
 				timer = setTimeout(function () {
-					console.log('Timeout!');
+					console.log('Timeout');
 					clearTimeout(timer);
 					reject();
 				}, 5000);
