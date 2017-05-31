@@ -5,24 +5,55 @@
 function Square(type, a, b, c, d) {
 	'use strict';
 	
-	this._type = type;
+	Shape.apply(this, arguments);
 	
-	this.a = a;
-	this.b = b;
-	this.c = c;
-	this.d = d;
+	Object.defineProperties(this, {
+				perimeter: {
+					get: function () {
+						return a + b + c + d;
+					},
+					set: function (perimeter) {
+						a = b = c = d = perimeter / 4;
+					}
+				},
+				a: {
+					get: function () {
+						return a;
+					},
+					set: function (value) {
+						a = value;
+					}
+				},
+				b: {
+					get: function () {
+						return b;
+					},
+					set: function (value) {
+						b = value;
+					}
+				},
+				c: {
+					get: function () {
+						return c;
+					},
+					set: function (value) {
+						c = value;
+					}
+				},
+				d: {
+					get: function () {
+						return d;
+					},
+					set: function (value) {
+						d = value;
+					}
+				}
+			}
+	);
 }
 
 Square.prototype = Object.create(Shape.prototype);
 Square.prototype.constructor = Square;
-
-Square.prototype.getPerimeter = function () {
-	'use strict';
-	
-	Shape.prototype.getPerimeter.apply(this, arguments);
-	
-	return this.a + this.b + this.c + this.d;
-};
 
 Square.prototype.draw = function () {
 	'use strict';

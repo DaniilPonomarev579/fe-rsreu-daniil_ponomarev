@@ -16,5 +16,5 @@ console.log(`
 	${shape.getPerimeter()}
 	${triangle.getPerimeter()}
 	${triangleEquilateral.getPerimeter()}
-	${square.getPerimeter()}
+	${square.perimeter}
 `);

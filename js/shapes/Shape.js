@@ -5,14 +5,18 @@
 function Shape(type) {
 	'use strict';
 	
-	this._type = type;
-}
-
-Shape.prototype.getType = function () {
-	'use strict';
+	let _type;
 	
-	return this._type;
-};
+	this.setType = function (type) {
+		_type = type;
+	};
+	
+	this.getType = function () {
+		return _type;
+	};
+	
+	this.setType(type);
+}
 
 Shape.prototype.getPerimeter = function () {
 	'use strict';
@@ -25,3 +29,24 @@ Shape.prototype.draw = function () {
 	
 	console.log('Shape');
 };
+
+class Shape2 {
+	constructor(type) {
+		this._type = type;
+	}
+	
+	setType(type) {
+		this._type = type;
+	}
+	
+	getType(){
+		return this._type;
+	}
+	
+	draw(){
+		console.log('Shape2');
+	}
+}
+
+let shape2 = new Shape2('Shape2');
+shape2.draw();
