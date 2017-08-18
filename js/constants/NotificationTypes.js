@@ -1,0 +1,4 @@
+var NOTIFICATION_ADD_BOOK = 'addBook';
+var NOTIFICATION_FILTER = 'filter';
+var NOTIFICATION_SEARCH = 'search';
+var NOTIFICATION_RATING = 'rating';
